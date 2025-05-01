@@ -107,7 +107,7 @@ await validateEmail("user@example.com", { customWarningRules: customRules });
 Validate email addresses directly from the command line:
 
 ```bash
-verify-email user@example.com
+mail-validatr user@example.com
 ```
 
 **Output:**
@@ -125,7 +125,7 @@ verify-email user@example.com
 Use the `--skip-dns` flag to skip DNS and MX record validation:
 
 ```bash
-verify-email user@example.com --skip-dns
+mail-validatr user@example.com --skip-dns
 ```
 
 #### Verbose Output
@@ -133,7 +133,7 @@ verify-email user@example.com --skip-dns
 Enable verbose output with the `--verbose` flag:
 
 ```bash
-verify-email user@example.com --verbose
+mail-validatr user@example.com --verbose
 ```
 
 ---
