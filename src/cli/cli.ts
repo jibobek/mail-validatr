@@ -38,8 +38,8 @@ const verbose = argv.verbose || false;
       console.log(`- Syntax valid: ${result.isValidSyntax}`);
       console.log(`- Domain valid: ${result.hasValidDomain}`);
       console.log(`- MX records found: ${result.hasMxRecords}`);
-      console.log(`- Warnings: ${result.warnings.join(", ") || "None"}`);
-      console.log(`- Recommended: ${result.recommented ? "Yes" : "No"}`);
+      console.log(`- Warnings: ${result.warnings.map(w => w.message).join(", ") || "None"}`);
+      console.log(`- Recommended: ${result.recommended ? "Yes" : "No"}`);
 
       if (verbose) {
         console.log(`[DETAILS] Full result object:`, result);

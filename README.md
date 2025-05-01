@@ -57,7 +57,7 @@ checkEmail();
   "hasValidDomain": true,
   "hasMxRecords": true,
   "warnings": [],
-  "recommented": true
+  "recommended": true
 }
 ```
 
@@ -75,10 +75,29 @@ You can define custom rules for additional validation:
 
 ```ts
 const customRules = [
-  (email: string) => email.endsWith("@example.com") ? "Emails from example.com are not allowed." : null,
+  (email: string) =>
+    email.endsWith("@example.com")
+      ? { code: "example_com_not_allowed", message: "Emails from example.com are not allowed." }
+      : null,
 ];
 
 await validateEmail("user@example.com", { customWarningRules: customRules });
+```
+
+**Example output with warnings:**
+```json
+{
+  "isValidSyntax": true,
+  "hasValidDomain": true,
+  "hasMxRecords": true,
+  "warnings": [
+    {
+      "code": "example_com_not_allowed",
+      "message": "Emails from example.com are not allowed."
+    }
+  ],
+  "recommended": false
+}
 ```
 
 ---
@@ -129,7 +148,7 @@ verify-email user@example.com --verbose
 - **options** (object, optional):
   - **skipDnsCheck** (boolean): If `true`, skips DNS and MX record validation.
   - **customDisposableList** (string[]): Add custom disposable email domains.
-  - **customWarningRules** (Array<(email: string) => string | null>): Add custom validation rules.
+  - **customWarningRules** (Array<(email: string) => { code: string; message: string } | null>): Add custom warning rules.
 
 #### Returns:
 
@@ -140,8 +159,8 @@ interface EmailValidationResult {
   isValidSyntax: boolean;
   hasValidDomain?: boolean;
   hasMxRecords?: boolean;
-  warnings: string[];
-  recommented: boolean;
+  warnings: Array<{ code: string; message: string }>;
+  recommended: boolean;
 }
 ```
 

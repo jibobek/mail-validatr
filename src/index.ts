@@ -1,16 +1,19 @@
 import { validateDomain, testSyntax, getWarnings, isDisposableEmail, addCustomWarningRule } from "./core";
-import { EmailValidationResult, ValidationOptions } from "./types";
+import { EmailValidationResult, ValidationOptions, Warning } from "./types";
 
 export async function validateEmail(email: string, options: ValidationOptions = {}): Promise<EmailValidationResult> {
-  const warnings: string[] = [];
+  const warnings: Warning[] = [];
   const isValidSyntax = testSyntax(email);
 
   if (!isValidSyntax) {
-    warnings.push("Email does not match basic syntax (missing '@' or domain part).");
+    warnings.push({
+      code: "invalid_syntax",
+      message: "Email does not match basic syntax (missing '@' or domain part).",
+    });
     return {
       isValidSyntax: false,
       warnings,
-      recommented: false
+      recommended: false
     };
   }
   const domain = email.split("@")[1];
@@ -21,7 +24,10 @@ export async function validateEmail(email: string, options: ValidationOptions = 
   warnings.push(...getWarnings(email));
 
   if (isDisposableEmail(domain, options.customDisposableList || [])) {
-    warnings.push("Email domain belongs to a disposable email provider.");
+    warnings.push({
+      code: "disposable_email",
+      message: "Email domain belongs to a disposable email provider.",
+    });
   }
 
   let hasMxRecords = undefined;
@@ -36,13 +42,13 @@ export async function validateEmail(email: string, options: ValidationOptions = 
     } catch (error) { }
   }
 
-  const recommented = isValidSyntax && warnings.length === 0 && (hasValidDomain !== false) && (hasMxRecords !== false);
+  const recommended = isValidSyntax && warnings.length === 0 && (hasValidDomain !== false) && (hasMxRecords !== false);
 
   return {
     isValidSyntax,
     ...(hasValidDomain !== undefined && { hasValidDomain }),
     ...(hasMxRecords !== undefined && { hasMxRecords }),
     warnings,
-    recommented
+    recommended
   };
 }
