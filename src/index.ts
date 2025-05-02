@@ -1,5 +1,11 @@
-import { validateDomain, testSyntax, getWarnings, isDisposableEmail, addCustomWarningRule } from "./core";
+import { testSyntax, getWarnings, isDisposableEmail, addCustomWarningRule } from "./core";
 import { EmailValidationResult, ValidationOptions, Warning } from "./types";
+
+export type {
+  EmailValidationResult,
+  ValidationOptions,
+  Warning
+} from './types';
 
 export async function validateEmail(email: string, options: ValidationOptions = {}): Promise<EmailValidationResult> {
   const warnings: Warning[] = [];
@@ -34,12 +40,15 @@ export async function validateEmail(email: string, options: ValidationOptions = 
   let hasValidDomain = undefined;
 
   if (!options.skipDnsCheck && typeof window === "undefined") {
-    // Only perform DNS checks in Node.js environments
     try {
+      const { validateDomain } = await import('./core/dns');
       const dnsResult = await validateDomain(domain);
-      hasValidDomain = dnsResult.hasValidDomain;
-      hasMxRecords = dnsResult.hasMxRecords;
-    } catch (error) { }
+      if (dnsResult) {
+        hasValidDomain = dnsResult.hasValidDomain;
+        hasMxRecords = dnsResult.hasMxRecords;
+      }
+    } catch (e) {
+    }
   }
 
   const recommended = isValidSyntax && warnings.length === 0 && (hasValidDomain !== false) && (hasMxRecords !== false);
