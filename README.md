@@ -171,6 +171,19 @@ interface EmailValidationResult {
 
 ---
 
+## 🧪 Example Projects
+
+You can see **real-world usage** of `mail-validatr` in action:
+
+- [mail-validatr-example](https://github.com/jibobek/mail-validatr-example)
+
+This repository contains:
+
+- **Client Demo** — Frontend-only validation with syntax + warning checks (Next.js + React + Tailwind).
+- **Server Demo** — Full email validation with DNS & MX lookup using server routes.
+
+---
+
 ### Useful Scripts
 
 - **Build:** `npm run build`
