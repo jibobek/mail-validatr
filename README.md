@@ -4,7 +4,7 @@
 It checks syntax, domain validity, and MX records to ensure an email address is not just well-formed, but also likely to exist.
 
 
-![npm](https://img.shields.io/npm/v/mail-validatr)
+[![npm](https://img.shields.io/npm/v/mail-validatr)](https://www.npmjs.com/package/mail-validatr)
 ![license](https://img.shields.io/npm/l/mail-validatr)
 [![CI](https://github.com/jibobek/mail-validatr/actions/workflows/test.yml/badge.svg)](https://github.com/jibobek/mail-validatr/actions)
 
