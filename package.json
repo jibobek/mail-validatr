@@ -1,7 +1,8 @@
 {
   "name": "mail-validatr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Email validation CLI and library with DNS, MX, and warning checks.",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jibobek/mail-validatr.git"
