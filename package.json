@@ -1,6 +1,6 @@
 {
   "name": "mail-validatr",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Email validation CLI and library with DNS, MX, and warning checks.",
   "license": "MIT",
   "repository": {
@@ -18,13 +18,12 @@
   "author": "Jindrich Bobek <info@jindrichbobek.cz>",
   "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./cli": "./dist/cli/cli.js"
   },
